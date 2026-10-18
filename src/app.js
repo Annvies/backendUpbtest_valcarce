@@ -5,26 +5,9 @@ const productoRoutes = require('./routes/producto.routes');
 
 const app = express();
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://logintesttriodenos.web.app',
-  'https://frontendupbtest-valcarce.web.app',
-  'https://*.web.app',
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.some((o) => {
-        if (o === origin) return true;
-        if (o === 'https://*.web.app') return origin.endsWith('.web.app');
-        return false;
-      })) {
-        return callback(null, true);
-      }
-      return callback(null, true);
-    },
+    origin: true,
     credentials: false,
   })
 );
