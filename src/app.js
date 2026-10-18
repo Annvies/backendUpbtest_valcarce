@@ -14,7 +14,7 @@ app.use(
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('API backendUpb funcionando');
+    res.send('API backendUpb funcionando | build:2026-10-18-corscheck');
 });
 
 app.use('/api/productos', productoRoutes);
