@@ -1,0 +1,9 @@
+$kind: collection
+description: |-
+  CRUD de productos (Express + PostgreSQL) desplegado en Render.
+
+  Cambia la variable `baseUrl` para usar local o producción.
+variables:
+  baseUrl: https://backendupbtest.onrender.com
+  localUrl: http://localhost:3000
+  id: "2"

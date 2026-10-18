@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{baseUrl}}/api/productos?nombre=prueba"
+method: GET
+queryParams:
+  - key: nombre
+    value: prueba
+    description: Texto a buscar (no distingue mayúsculas)
+order: 3000
