@@ -5,16 +5,35 @@ const productoRoutes = require('./routes/producto.routes');
 
 const app = express();
 
+// Orígenes permitidos (configurables por variable de entorno CORS_ORIGINS)
+const allowedOrigins = (
+  process.env.CORS_ORIGINS ||
+  'http://localhost:3000,https://logintesttriodenos.web.app,https://frontendupbtest-valcarce.web.app'
+)
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: true,
-    credentials: false,
+    origin(origin, callback) {
+      // Peticiones sin Origin (curl, health checks) siempre se permiten
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      // Preview channels de Firebase (*.web.app)
+      if (/^https:\/\/[a-z0-9-]+\.web\.app$/.test(origin)) {
+        return callback(null, true);
+      }
+      // No lanzamos error: el navegador bloqueará por falta de cabecera CORS
+      return callback(null, false);
+    },
   })
 );
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('API backendUpb funcionando | build:2026-10-18-corscheck');
+    res.send('API backendUpb funcionando');
 });
 
 app.use('/api/productos', productoRoutes);
